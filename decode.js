@@ -4,9 +4,11 @@ import { decToByte, getBinString } from "./utils/handleBinaries.js";
 import { DELIMITER } from "./utils/delimitMessage.js";
 import { decode } from "./utils/handleArgs.js";
 
-const image = decode()
-const data = await readBitmapFile(image);
-const imageData = [...data.imageData];
+const image = decode();
+const {
+  fileHeader: { imageDataOffset },
+} = await readBitmapFile(image);
+const imageData = [...fs.readFileSync(image)].splice(imageDataOffset);
 let hiddenMessage = "";
 let isDelimited = "";
 
@@ -23,7 +25,7 @@ for (let i = 0; i < binDelimiter.length; i++) {
 // vérifie si un délimiteur se trouve au début de l'image
 if (isDelimited !== binDelimiter) {
   //gestion erreur
-  throw("ERROR: Picture is not encoded\n");
+  throw "ERROR: Picture is not encoded\n";
 } else {
   let lastPixDigits = [];
   // on enlève le premier délimiteur de imageData
@@ -47,13 +49,8 @@ if (isDelimited !== binDelimiter) {
   }
 }
 
-hiddenMessage = hiddenMessage.replace(DELIMITER, "")
+hiddenMessage = hiddenMessage.replace(DELIMITER, "");
 
-console.log(
-  "The hidden message is :",
-  "\n",
-  hiddenMessage
-);
+console.log("The hidden message is :", "\n", hiddenMessage);
 
 fs.writeFileSync("res/decoded-message.txt", hiddenMessage);
-

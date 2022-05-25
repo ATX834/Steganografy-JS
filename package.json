@@ -7,6 +7,7 @@
   "scripts": {
     "encode": "node encode.js",
     "decode": "node decode.js",
+    "sniff": "node sniff.js",
     "encode:test": "npm run encode file=message-to-encode.txt image=entry.bmp" ,
     "decode:test": "npm run decode image=res/encodedImg.bmp",
     "start": "npm run encode:test && npm run decode:test"

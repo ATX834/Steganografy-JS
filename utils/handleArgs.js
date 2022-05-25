@@ -37,6 +37,15 @@ export const decode = () => {
 
   return image;
 };
+export const sniff = () => {
+  if (!validArgs.length) {
+    throw "ERROR: Missing arguments \n";
+  }
+
+  checkImageArg(image);
+
+  return image;
+};
 
 const checkImageArg = () => {
   if (!image) {
