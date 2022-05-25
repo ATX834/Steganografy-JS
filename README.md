@@ -1,2 +1,2 @@
-## Steganograpy JS
+## Steganografy JS
 
